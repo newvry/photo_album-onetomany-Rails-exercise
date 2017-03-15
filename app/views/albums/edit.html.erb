@@ -1,0 +1,16 @@
+<%= form_for @album, url: album_path(@album), mothed: :patch  do |f| %>
+  <% if @album.errors.present? %>
+    <ul>
+          <% @album.errors.each do |error, message| %>
+            <li><%= "#{error.capitalize}  #{message}" %></li>
+          <% end %>
+    </ul>
+  <% end %>
+
+<h2>Edit Album</h2>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  
+  <%= f.submit %>
+<% end %>

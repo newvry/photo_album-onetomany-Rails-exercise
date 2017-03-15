@@ -1,0 +1,14 @@
+<h1>Album index</h1>
+
+<ul>
+	<% @albums.each do |album| %>
+		<li>
+			Album name: <%= album.name %>
+			<%= link_to "Show", album_photos_path(album) %>
+			<%= link_to "Edit", edit_album_path(album) %>
+			<%= link_to "Destroy", album_path(album), method: :delete, data:{ confirm: "Are you sure?" } %>
+		</li>
+	<% end %>
+</ul>
+
+<%=  link_to "New Album", new_album_path %>	
