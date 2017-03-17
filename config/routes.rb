@@ -13,8 +13,10 @@ Rails.application.routes.draw do
 		
 			get :dashboard, on: :member
 		end
+	end
 
-		
+	namespace :admin do
+		resources :albums
 	end
 
 	resources :photos
