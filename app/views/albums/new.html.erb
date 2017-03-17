@@ -11,6 +11,15 @@
 
   <%= f.label :name %>
   <%= f.text_field :name %>
-  
+
+  <p>Category
+  <%= f.collection_select :category_id, Category.all, :id, :name, :include_blank => "Please select" %>
+  </p>
+
+  <p>Tags:<br>
+   <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) %>
+
+  </p> 
+
   <%= f.submit %>
 <% end %>

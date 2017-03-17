@@ -1,6 +1,18 @@
-<%= @photo.title %>
-<%= @photo.date %>
-<%= image_tag @photo.file_location.url %>
-<%= simple_format(@photo.description) %>
+<p>
+	Photo title:  <%= @photo.title %>
+</p>
+<p>
+	Photo date:  <%= @photo.date %>
+</p>
+<p>
+	Photo status:  <%= @photo.status %>
+</p>
+<br>
+
+	<%= image_tag @photo.file_location.url %>
+<p>
+	Description:<%= simple_format(@photo.description) %>
+</p>
+
 
 <p><%= link_to 'Back to Photo index', album_photos_path %></p>

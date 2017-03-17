@@ -1,8 +1,27 @@
 class AlbumsController < ApplicationController
 
+	before_action :authenticate_user!, except: [:index]
+
 	def index
-		@albums = Album.all
+		#@albums = Album.all
+		if (params[:keyword])
+			@albums = Album.where(["name LIKE ?", "%#{params[:keyword]}%"])
+		else
+			@albums = Album.all
+		end
+
+		if (params[:order])
+			sort_by = (params[:order] == "name" ) ? "name" : "id"
+			@albums = @albums.order(sort_by)
+		end
+
 	end
+
+	def latest
+		@album = Album.order("id DESC").limit(2)
+	end
+
+
 
 	def new
 		@album = Album.new
@@ -10,6 +29,9 @@ class AlbumsController < ApplicationController
 
 	def create
  		@album = Album.new(album_params)
+
+ 		@album.user = current_user
+
  		if @album.save
 			redirect_to albums_url
 		else	
@@ -45,7 +67,7 @@ class AlbumsController < ApplicationController
 	private
 
 	def album_params
-		params.require(:album).permit(:name)
+		params.require(:album).permit(:name, :category_id, :tag_ids => [])
 	end
 
 end

@@ -1,12 +1,48 @@
-<ul>
- <% @photos.each do |photo| %>
-  <li>
-    <%= photo.title %>
-    <%= link_to 'Show', album_photo_path(@album, photo) %>
-    <%= link_to 'Edit', edit_album_photo_path(@album, photo) %>
-    <%= link_to 'Destroy', album_photo_path(@album, photo), method: :delete, data:{ confirm: "Are you sure?" } %>
-  </li>
+<h1>Album: <%= @album.name %></h1>
+
+<%= form_tag album_photos_path, method: :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<p>Category: <%= @album.category.try(:name) %></p>
+
+
+<%= form_tag bulk_update_album_photos_path do %>
+ <table class="table">
+   <% @photos.each do |photo| %>
+  <tr>
+    <td>
+      <%= check_box_tag "ids[]", photo.id, false %>
+        <%= photo.title %>
+    </td>
+    <td>
+      <%= link_to 'Show', album_photo_path(@album, photo) %>
+      <%= link_to 'Dashboard', dashboard_album_photo_path(@album, photo) %>
+      <%= link_to 'Edit', edit_album_photo_path(@album, photo) %>
+      <%= link_to 'Destroy', album_photo_path(@album, photo), method: :delete, data:{ confirm: "Are you sure?" } %>
+    </td>
+  </tr>
  <% end %>
+</table>
+
+  <%= submit_tag "Delete" %>
+  <%= submit_tag "Publish" %>
+
+<% end %>
+
+<p>
+
+</p>
+
+<p>
+	Tags:<br>
+	<% @album.tag.each do |tag| %>
+		<%= tag.name %>
+	<% end %>
+</p>
+
+
 </ul>
 
 <%= link_to 'New Photo', new_album_photo_path %><br>

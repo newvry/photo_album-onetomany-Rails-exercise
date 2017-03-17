@@ -1,12 +1,20 @@
 class AlbumPhotosController < ApplicationController
 
+	before_action :authenticate_user!
+
+
 	before_action :album_find
 
-	before_action :photo_find, only: [:show, :edit, :update, :destroy]
+	before_action :photo_find, only: [:show, :edit, :update, :destroy, :dashboard]
 
 	def index
 		#@album = Album.find(params[:album_id]) #album id
-		@photos = @album.photos
+		if (params[:keyword])
+			@photos = @album.photos.where( ["title LIKE ?", "%#{params[:keyword]}%"] )
+		else
+			@photos = @album.photos
+		end	
+		# @photos = @album.photos
 	end
 
 	def new
@@ -50,6 +58,24 @@ class AlbumPhotosController < ApplicationController
 		@photo.destroy
 
 		redirect_to album_photos_path
+	end
+
+	def bulk_update
+		#@album.photos.destroy_all
+		ids = Array(params[:ids])
+		photos = ids.map{ |t| Photo.find_by_id(t) }.compact
+
+		if params[:commit] == "Delete"
+			photos.each{ |i| i.destroy }
+		elsif params[:commit] == "Publish"
+			photos.each{ |i| i.update( status: "Published" ) }
+		end
+
+		redirect_to album_photos_path(@album)
+	end
+
+	def dashboard
+		
 	end
 
 

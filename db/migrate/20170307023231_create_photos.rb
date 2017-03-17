@@ -8,6 +8,7 @@ class CreatePhotos < ActiveRecord::Migration[5.0]
       t.boolean :is_public
       t.integer :capacity
       t.integer :album_id
+      t.string :status
 
 
       t.timestamps

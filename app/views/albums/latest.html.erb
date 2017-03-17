@@ -1,0 +1,15 @@
+<h3>Newest albums:</h3> 
+<% @album.each do |album| %>
+	
+<ul>
+	<li>
+		
+		<%= album.name %>
+
+	</li>
+</ul>
+
+<% end %>
+
+
+<%= link_to "Home", albums_path %>
