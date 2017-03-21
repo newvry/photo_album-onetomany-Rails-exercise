@@ -15,6 +15,8 @@ class AlbumsController < ApplicationController
 			@albums = @albums.order(sort_by)
 		end
 
+		@albums = Album.page(params[:page]).per(5)
+
 	end
 
 	def latest
