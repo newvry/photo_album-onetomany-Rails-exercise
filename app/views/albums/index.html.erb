@@ -1,8 +1,8 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
+<div class = "text-right">
 <% if current_user %>
-
 	Hi, <%= current_user.email %>
 
 	    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
@@ -11,7 +11,9 @@
 	    <%= link_to('註冊', new_registration_path(:user)) %> |
 	    <%= link_to('登入', new_session_path(:user)) %>
 <% end %>
+</div>
 
+<div class = "text-center">
 <h1>Album index</h1>
 
 <%= form_tag albums_path, method: :get do %>
@@ -20,27 +22,30 @@
 <% end %>
 
 <p>
-	<%= link_to 'Sort by Name', albums_path( :order => "name") %>
-	<%= link_to 'Sort by Default', albums_path %>
+	<%= link_to 'Sort by Name', albums_path( :order => "name"), :class => "btn btn-default" %>
+	<%= link_to 'Sort by Default', albums_path, :class => "btn btn-default" %>
 </p>
 
-<ul>
-	<% @albums.each do |album| %>
-		<li>
-			<i>
-			<%= album.user.try(:short_name) %>'s<br>
-			</i>	
-			Album name: <%= album.name %>
-			<%= link_to "Show", album_photos_path(album) %>
-			<%= link_to "Edit", edit_album_path(album) %>
-			<%= link_to "Destroy", album_path(album), method: :delete, data:{ confirm: "Are you sure?" } %>
-		</li>
-	<% end %>
-</ul>
 
-<%=  link_to "Create New Album", new_album_path %><br>	
+			<% @albums.each do |album| %>
+				<li>
+					<i>
+					<%= album.user.try(:short_name) %>'s
+					</i>	
+					Album name: <%= album.name %>
+					<%= link_to "Show", album_photos_path(album), :class => "btn btn-info" %>
+					<%= link_to "Edit", edit_album_path(album), :class => "btn btn-warning" %>
+					<%= link_to "Destroy", album_path(album), method: :delete, data:{ confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+				</li>
+			<% end %>
 
 
-<%= link_to "Newest Albums", latest_albums_path %><br>
+<%=  link_to "Create New Album", new_album_path, :class => "btn btn-primary btn-lg" %><br>	
+
+
+<%= link_to "Newest Albums", latest_albums_path, :class => "btn btn-primary btn-lg"%><br>
 
 <%= paginate @albums %>
+</div>
+
+    <%= link_to "Admin", admin_albums_path %>

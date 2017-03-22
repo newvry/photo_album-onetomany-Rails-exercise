@@ -1,18 +1,24 @@
-<p>
-	Photo title:  <%= @photo.title %>
-</p>
-<p>
-	Photo date:  <%= @photo.date %>
-</p>
-<p>
-	Photo status:  <%= @photo.status %>
-</p>
-<br>
+<div class = "container">
+	<div class="text-center">
 
-	<%= image_tag @photo.file_location.url %>
-<p>
-	Description:<%= simple_format(@photo.description) %>
-</p>
+		<p>
+			Photo title:  <%= @photo.title %>
+		</p>
+		<p>
+			Photo date:  <%= @photo.date %>
+		</p>
+		<p>
+			Photo status:  <%= @photo.status %>
+		</p>
 
+			<%= image_tag @photo.file_location.url %>
 
-<p><%= link_to 'Back to Photo index', album_photos_path %></p>
+		<p>
+			Description:<%= simple_format(@photo.description) %>
+		</p>
+
+		<p>
+			<%= link_to 'Back to Photo index', album_photos_path, :class => "btn btn-primary" %>	
+		</p>
+	</div>
+</div>

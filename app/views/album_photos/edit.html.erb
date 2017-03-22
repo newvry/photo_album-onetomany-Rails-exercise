@@ -1,3 +1,4 @@
+<div class = "text-center">
 <%= form_for @photo, url: album_photo_path(@album, @photo), method: :put do |f| %>
   <% if @photo.errors.present? %>
     <ul>
@@ -6,6 +7,7 @@
           <% end %>
     </ul>
   <% end %>
+<table class="table">  
   <%= f.label :title %>
   <%= f.text_field :title %>
 
@@ -19,4 +21,6 @@
   <%= f.file_field :file_location %>
   
   <%= f.submit %>
+</table>
 <% end %>
+</div>
