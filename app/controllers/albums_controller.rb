@@ -3,19 +3,20 @@ class AlbumsController < ApplicationController
 	before_action :authenticate_user!, except: [:index]
 
 	def index
+	
 		#@albums = Album.all
 		if (params[:keyword])
-			@albums = Album.where(["name LIKE ?", "%#{params[:keyword]}%"])
-		else
-			@albums = Album.all
-		end
+			@albums = Album.where(["name LIKE ?", "%#{params[:keyword]}%"]).page(params[:page]).per(6)
 
-		if (params[:order])
+		elsif (params[:order])
 			sort_by = (params[:order] == "name" ) ? "name" : "id"
-			@albums = @albums.order(sort_by)
+			@albums = Album.order(sort_by).page(params[:page]).per(6)
+		else
+			# @albums = Album.all
+			@albums = Album.page(params[:page]).per(6)
 		end
 
-		@albums = Album.page(params[:page]).per(6)
+
 
 	end
 
