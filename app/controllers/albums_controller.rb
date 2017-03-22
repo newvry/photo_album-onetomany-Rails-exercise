@@ -3,7 +3,7 @@ class AlbumsController < ApplicationController
 	before_action :authenticate_user!, except: [:index]
 
 	def index
-	
+
 		#@albums = Album.all
 		if (params[:keyword])
 			@albums = Album.where(["name LIKE ?", "%#{params[:keyword]}%"]).page(params[:page]).per(6)
@@ -16,14 +16,11 @@ class AlbumsController < ApplicationController
 			@albums = Album.page(params[:page]).per(6)
 		end
 
-
-
 	end
 
 	def latest
 		@album = Album.order("id DESC").limit(2)
 	end
-
 
 
 	def new
@@ -37,7 +34,7 @@ class AlbumsController < ApplicationController
 
  		if @album.save
 			redirect_to albums_url
-		else	
+		else
 			render :new
 		end
 	end
